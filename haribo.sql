@@ -1,9 +1,9 @@
 --1-- Lister toutes les BDD
-
+SHOW DATABASES;
 
 --2-- Créer une base de données SQL nommée HARIBO
-
-
+CREATE DATABASE `haribo`;
+USE `haribo`;/** pour se déplacer dans la table haribo
 --3--
 /**
 * Créer une table user qui comporte 4 champs :
@@ -12,7 +12,12 @@
 * - color_eyes => 30 caractères, requis
 * - gender => homme / femme / autre , requis
 */
-
+CREATE TABLE `user` (
+    `id_user` INT AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(100),
+    `color_eyes` VARCHAR(30),
+    `gender` VARCHAR(30)
+);
  
 --4--
 /**
@@ -29,7 +34,19 @@
 * Lamia marron f
 * Catherine marron f
 */
-
+INSERT INTO `user` (`name`, `color_eyes`, `gender`)
+VALUES
+('Vera','marron','f'),
+('Hafida','marron','f'),
+('Kylian','marron','h'),
+('Priscille','marron','f'),
+('Pauline','marron','f'),
+('Ilyes','marron','a'),
+('Balamini','marron','h'),
+('Kevin','vert','h'),
+('Mohamed','marron','h'),
+('Lamia','marron','f'),
+('Catherine','marron','f');
 
 --5--
 /**
@@ -38,7 +55,14 @@
 * - name => 100 caractères, requis
 * - flavor => 100 caractères, requis
 */
+CREATE TABLE `candy` (
+    `id_candy` INT AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(100),
+    `flavor` VARCHAR(100)
+);
 
+--pour suprimer une table c'est 
+DROP TABLE `candy`;
 
 --6--
 /**
@@ -55,7 +79,19 @@
 * 'oeufoplat', 'guimauve')
 * 'flanbotti', 'caramel'
 */
-
+INSERT INTO `candy` (`name`, `flavor` )
+VALUES
+('dragibus', 'cola'),
+('tagada', 'fraise'),
+('bams', 'banane'),
+('rotella', 'reglisse'),
+('floppys', 'sucre'),
+('rainbollows', 'marshmallow'),
+('bigharri', 'cerise'),
+('oursor', 'fruits'),
+('croco', 'fruits'),
+('oeufoplat', 'guimauve'),
+('flanbotti', 'caramel');
 
 --7--
 /**
@@ -67,6 +103,15 @@
 * - quantity => nombre, requis
 */
 
+CREATE TABLE `eat` (
+    `id_eat` INT AUTO_INCREMENT PRIMARY KEY,
+    `id_user` INT,
+    `id_candy` INT,
+    `date_eat` Date,
+    `quantity` INT,
+    FOREIGN KEY (id_user) REFERENCES user(id_user),
+    FOREIGN KEY (id_candy) REFERENCES candy(id_candy)
+);
 
 --8--
 /**
@@ -83,19 +128,32 @@
 (10,10,'2025-08-01', 5),
 (11,11,'2025-08-01', 5)
 */
-
+INSERT INTO `eat` (`id_user`, `id_candy`, `date_eat`, `quantity`)
+VALUES
+(4,7,'2025-08-20', 5),
+(1,1,'2025-08-05', 5),
+(2,2,'2025-08-03', 5),
+(3,3,'2025-08-04', 5),
+(5,4,'2025-08-15', 5),
+(6,5,'2025-08-18', 5),
+(7,6,'2025-08-22', 5),
+(8,8,'2025-08-19', 5),
+(9,9,'2025-08-21', 5),
+(10,10,'2025-08-01', 5),
+(11,11,'2025-08-01', 5);
 
 --9-- Lister les tables de la BDD *Haribo*
+SHOW TABLES;
 
-
---10-- voir les colones de la table *candy*
-
+--10-- voir les colonnes de la table *candy*
+SELECT * FROM `candy`;
 
 --11-- Sélectionner tous les champs de tous les enregistrements de la table *user*
-
+SELECT * FROM `user`;
 
 --12-- Rajouter un nouveau user *Patriiiick* en forçant la numérotation de l'id par la valeur 150
-
+CREATE USER [Patrick] 
+ID_USER = 150;
 
 --13-- Rajouter un nouveau user *Mila* SANS forcer la numérotation de l'id
 
